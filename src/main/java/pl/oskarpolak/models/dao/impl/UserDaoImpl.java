@@ -22,7 +22,6 @@ public class UserDaoImpl implements UserDao {
         try {
             ResultSet set = preparedStatement.executeQuery();
             if(!set.next()) {
-                //TODO komunikat, o braku takiego usera
                 return false;
             }
             String passwordFromDatabase = set.getString("password");

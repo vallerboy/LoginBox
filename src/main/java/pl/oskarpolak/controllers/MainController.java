@@ -6,6 +6,9 @@ import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import pl.oskarpolak.Utils;
+import pl.oskarpolak.models.dao.UserDao;
+import pl.oskarpolak.models.dao.impl.UserDaoImpl;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,13 +24,19 @@ public class MainController implements Initializable{
     @FXML
     JFXPasswordField textPassword;
 
+    private UserDao userDao = new UserDaoImpl();
+
     public void initialize(URL location, ResourceBundle resources) {
         loginButtionAction();
     }
 
     private void loginButtionAction() {
         buttonLogin.setOnMouseClicked(e -> {
-            //akcja logowania
+              if(userDao.checkLogin(textLogin.getText(), textPassword.getText())){
+                  Utils.openSimpleDialog("Logowanie", "Logowanie przebiegło pomyślnie");
+              }else{
+                  Utils.openSimpleDialog("Logowanie", "Nieprawidłowy login lub hasło");
+              }
         });
     }
 }
